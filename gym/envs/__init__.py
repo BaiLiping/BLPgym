@@ -335,7 +335,7 @@ register(
 
 register(
     id='Walker2dBLP-v0',
-    max_episode_steps=6000,
+    max_episode_steps=1000,
     entry_point='gym.envs.mujoco.walker2d_blp:Walker2dBLPEnv',
 )
 
