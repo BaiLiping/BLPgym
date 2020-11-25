@@ -270,7 +270,7 @@ register(
 register(
     id='HalfCheetahBLP-v0',
     entry_point='gym.envs.mujoco.half_cheetah_blp:HalfCheetahBLPEnv',
-    max_episode_steps=6000,
+    max_episode_steps=1000,
     reward_threshold=4800.0,
 )
 
