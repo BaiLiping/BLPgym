@@ -1,5 +1,5 @@
 import numpy as np
-from gym.envs.mujoco import mujoco_blp
+from gym.envs.mujoco import mujoco_blp3
 from gym import utils
 
 
@@ -11,8 +11,9 @@ DEFAULT_CAMERA_CONFIG = {
 }
 
 
-class Walker2dBLPEnv(mujoco_blp.MujocoBLPEnv, utils.EzPickle):
+class Walker2dBLPEnv(mujoco_blp3.MujocoBLPEnv, utils.EzPickle):
     def __init__(self,
+                 action_record=[0.0,0.0,0.0,0.0,0.0,0.0],
                  xml_file='walker2d.xml',
                  forward_reward_weight=1.0,
                  ctrl_cost_weight=1e-3,
@@ -22,6 +23,7 @@ class Walker2dBLPEnv(mujoco_blp.MujocoBLPEnv, utils.EzPickle):
                  healthy_angle_range=(-1.0, 1.0),
                  reset_noise_scale=5e-3,
                  exclude_current_positions_from_observation=True):
+        self._action_record=action_record
         utils.EzPickle.__init__(**locals())
 
         self._forward_reward_weight = forward_reward_weight
@@ -38,7 +40,7 @@ class Walker2dBLPEnv(mujoco_blp.MujocoBLPEnv, utils.EzPickle):
         self._exclude_current_positions_from_observation = (
             exclude_current_positions_from_observation)
 
-        mujoco_blp.MujocoBLPEnv.__init__(self, xml_file, 4)
+        mujoco_blp3.MujocoBLPEnv.__init__(self, xml_file, 4)
 
     @property
     def healthy_reward(self):
@@ -79,10 +81,13 @@ class Walker2dBLPEnv(mujoco_blp.MujocoBLPEnv, utils.EzPickle):
         if self._exclude_current_positions_from_observation:
             position = position[1:]
 
-        observation = np.concatenate((position, velocity)).ravel()
+        action_record=self._action_record
+
+        observation = np.concatenate((position, velocity,action_record)).ravel()
         return observation
 
     def step(self, action):
+        self._action_record=action
         x_position_before = self.sim.data.qpos[0]
         self.do_simulation(action, self.frame_skip)
         x_position_after = self.sim.data.qpos[0]
@@ -117,6 +122,7 @@ class Walker2dBLPEnv(mujoco_blp.MujocoBLPEnv, utils.EzPickle):
             low=noise_low, high=noise_high, size=self.model.nv)
 
         self.set_state(qpos, qvel)
+        self._action_record=[0.0,0.0,0.0,0.0,0.0,0.0]
 
         observation = self._get_obs()
         return observation

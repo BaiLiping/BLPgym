@@ -26,8 +26,6 @@ class HopperBLPEnv(mujoco_blp2.MujocoBLPEnv, utils.EzPickle):
                  reset_noise_scale=5e-3,
                  exclude_current_positions_from_observation=True):
         self._action_record=action_record
-
-
         utils.EzPickle.__init__(**locals())
 
         self._forward_reward_weight = forward_reward_weight

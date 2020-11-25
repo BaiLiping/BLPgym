@@ -1,6 +1,6 @@
 import numpy as np
 from gym import utils
-from gym.envs.mujoco import mujoco_blp
+from gym.envs.mujoco import mujoco_blp3
 
 
 DEFAULT_CAMERA_CONFIG = {
@@ -8,13 +8,15 @@ DEFAULT_CAMERA_CONFIG = {
 }
 
 
-class HalfCheetahBLPEnv(mujoco_blp.MujocoBLPEnv, utils.EzPickle):
+class HalfCheetahBLPEnv(mujoco_blp3.MujocoBLPEnv, utils.EzPickle):
     def __init__(self,
+                 action_record=[0.0,0.0,0.0,0.0,0.0,0.0],
                  xml_file='half_cheetah.xml',
                  forward_reward_weight=1.0,
                  ctrl_cost_weight=0.1,
                  reset_noise_scale=0.1,
                  exclude_current_positions_from_observation=True):
+        self._action_record=action_record
         utils.EzPickle.__init__(**locals())
 
         self._forward_reward_weight = forward_reward_weight
@@ -26,13 +28,14 @@ class HalfCheetahBLPEnv(mujoco_blp.MujocoBLPEnv, utils.EzPickle):
         self._exclude_current_positions_from_observation = (
             exclude_current_positions_from_observation)
 
-        mujoco_blp.MujocoBLPEnv.__init__(self, xml_file, 5)
+        mujoco_blp3.MujocoBLPEnv.__init__(self, xml_file, 5)
 
     def control_cost(self, action):
         control_cost = self._ctrl_cost_weight * np.sum(np.square(action))
         return control_cost
 
     def step(self, action):
+        self._action_record=action
         x_position_before = self.sim.data.qpos[0]
         self.do_simulation(action, self.frame_skip)
         x_position_after = self.sim.data.qpos[0]
@@ -62,8 +65,9 @@ class HalfCheetahBLPEnv(mujoco_blp.MujocoBLPEnv, utils.EzPickle):
 
         if self._exclude_current_positions_from_observation:
             position = position[1:]
+        action_record=self._action_record
 
-        observation = np.concatenate((position, velocity)).ravel()
+        observation = np.concatenate((position, velocity,action_record)).ravel()
         return observation
 
     def reset_model(self):
@@ -76,7 +80,7 @@ class HalfCheetahBLPEnv(mujoco_blp.MujocoBLPEnv, utils.EzPickle):
             self.model.nv)
 
         self.set_state(qpos, qvel)
-
+        self._action_record=[0.0,0.0,0.0,0.0,0.0,0.0]
         observation = self._get_obs()
         return observation
 
