@@ -18,3 +18,5 @@ from gym.envs.mujoco.thrower import ThrowerEnv
 from gym.envs.mujoco.striker import StrikerEnv
 from gym.envs.mujoco.hopper_blp import HopperBLPEnv
 from gym.envs.mujoco.inverted_pendulum_blp import InvertedPendulumBLPEnv
+from gym.envs.mujoco.half_cheetah_blp import HalfCheetahBLPEnv
+from gym.envs.mujoco.walker2d_blp import Walker2dBLPEnv

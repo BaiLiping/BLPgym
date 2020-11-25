@@ -268,6 +268,13 @@ register(
 )
 
 register(
+    id='HalfCheetahBLP-v0',
+    entry_point='gym.envs.mujoco.half_cheetah_blp:HalfCheetahBLPEnv',
+    max_episode_steps=6000,
+    reward_threshold=4800.0,
+)
+
+register(
     id='Hopper-v2',
     entry_point='gym.envs.mujoco:HopperEnv',
     max_episode_steps=1000,
@@ -319,6 +326,12 @@ register(
     id='Walker2d-v3',
     max_episode_steps=1000,
     entry_point='gym.envs.mujoco.walker2d_v3:Walker2dEnv',
+)
+
+register(
+    id='Walker2dBLP-v0',
+    max_episode_steps=6000,
+    entry_point='gym.envs.mujoco.walker2d_blp:Walker2dBLPEnv',
 )
 
 register(
