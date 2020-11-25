@@ -284,7 +284,7 @@ register(
 register(
     id='Hopper-v3',
     entry_point='gym.envs.mujoco.hopper_v3:HopperEnv',
-    max_episode_steps=1000,
+    max_episode_steps=3000,
     reward_threshold=3800.0,
 )
 
@@ -292,16 +292,21 @@ register(
     id='HopperBLP-v0',
     entry_point='gym.envs.mujoco.hopper_blp:HopperBLPEnv',
     max_episode_steps=3000,
-    reward_threshold=3000.0,
+    reward_threshold=3800.0,
 )
 
 register(
     id='HopperBLP-v1',
     entry_point='gym.envs.mujoco.hopper_blp_v1:HopperBLPEnv',
     max_episode_steps=3000,
-    reward_threshold=3000.0,
+    reward_threshold=3800.0,
 )
-
+register(
+    id='HopperBLP-v2',
+    entry_point='gym.envs.mujoco.hopper_blp_v2:HopperBLPEnv',
+    max_episode_steps=3000,
+    reward_threshold=3800.0,
+)
 register(
     id='Swimmer-v2',
     entry_point='gym.envs.mujoco:SwimmerEnv',

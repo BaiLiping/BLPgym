@@ -60,7 +60,7 @@ class MujocoBLPEnv(gym.Env):
 
         self._set_action_space()
 
-        action = self.action_space.sample()
+        action = [0.0,0.0,0.0]
         observation, _reward, done, _info = self.step(action)
         assert not done
 

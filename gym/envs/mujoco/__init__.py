@@ -1,6 +1,6 @@
 from gym.envs.mujoco.mujoco_env import MujocoEnv
 from gym.envs.mujoco.mujoco_blp import MujocoBLPEnv
-
+from gym.envs.mujoco.mujoco_blp2 import MujocoBLPEnv
 # ^^^^^ so that user gets the correct error
 # message if mujoco is not installed correctly
 from gym.envs.mujoco.ant import AntEnv
