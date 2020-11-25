@@ -110,7 +110,6 @@ class HopperBLPEnv(mujoco_blp.MujocoBLPEnv, utils.EzPickle):
             action_joint_next=action_joint+1
 
         self._action_record[action_joint]=action[0]
-        print(self._action_record)
 
         if self._step_count%3==0:
 
