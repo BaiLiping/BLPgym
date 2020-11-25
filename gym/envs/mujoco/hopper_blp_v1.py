@@ -101,6 +101,7 @@ class HopperBLPEnv(mujoco_blp.MujocoBLPEnv, utils.EzPickle):
 
     def step(self, action):
         self._step_count+=1
+
         if self._step_count%3==0:
             action_joint=2
             action_joint_next=0
@@ -108,40 +109,51 @@ class HopperBLPEnv(mujoco_blp.MujocoBLPEnv, utils.EzPickle):
             action_joint=self._step_count%3-1
             action_joint_next=action_joint+1
 
-
-        single_joint_action=[0,0,0]
-        single_joint_action[action_joint]=action[0]
-
         self._action_record[action_joint]=action[0]
+        print(self._action_record)
 
+        if self._step_count%3==0:
 
-        x_position_before = self.sim.data.qpos[0]
-        self.do_simulation(single_joint_action, self.frame_skip)
-        x_position_after = self.sim.data.qpos[0]
-        x_velocity = ((x_position_after - x_position_before)
-                      / self.dt)
+            x_position_before = self.sim.data.qpos[0]
+            self.do_simulation(self._action_record, self.frame_skip)
+            x_position_after = self.sim.data.qpos[0]
+            x_velocity = ((x_position_after - x_position_before)
+                          / self.dt)
 
-        ctrl_cost = self.control_cost(action)
+            ctrl_cost = self.control_cost(action)
 
-        forward_reward = self._forward_reward_weight * x_velocity
-        healthy_reward = self.healthy_reward
+            forward_reward = self._forward_reward_weight * x_velocity
+            healthy_reward = self.healthy_reward
 
-        rewards = forward_reward + healthy_reward
-        costs = ctrl_cost
+            rewards = forward_reward + healthy_reward
+            costs = ctrl_cost
 
-        observation_withactions = self._get_obs()
+            observation_withactions = self._get_obs()
 
-        index_for_next_action=11+action_joint_next
-        observation_withactions[index_for_next_action]=0
-        observation=observation_withactions
-        reward = rewards - costs
-        done = self.done
-        info = {
-            'x_position': x_position_after,
-            'x_velocity': x_velocity,
-        }
+            index_for_next_action=11+action_joint_next
+            observation_withactions[index_for_next_action]=0
+            observation=observation_withactions
+            reward = rewards - costs
+            done = self.done
+            info = {
+                'x_position': x_position_after,
+                'x_velocity': x_velocity,
+            }
 
-        return observation, reward, done, info
+            return observation, reward, done, info
+        else:
+            reward = 0
+            observation_withactions = self._get_obs()
+
+            index_for_next_action=11+action_joint_next
+            observation_withactions[index_for_next_action]=0
+            observation=observation_withactions
+            done = self.done
+            info = {
+                'joint_index': action_joint,
+            }
+            return observation, reward, done, info
+
 
     def reset_model(self):
         noise_low = -self._reset_noise_scale
