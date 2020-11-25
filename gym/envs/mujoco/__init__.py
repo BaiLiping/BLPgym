@@ -1,4 +1,6 @@
 from gym.envs.mujoco.mujoco_env import MujocoEnv
+from gym.envs.mujoco.mujoco_blp import MujocoBLPEnv
+
 # ^^^^^ so that user gets the correct error
 # message if mujoco is not installed correctly
 from gym.envs.mujoco.ant import AntEnv
@@ -14,3 +16,5 @@ from gym.envs.mujoco.humanoidstandup import HumanoidStandupEnv
 from gym.envs.mujoco.pusher import PusherEnv
 from gym.envs.mujoco.thrower import ThrowerEnv
 from gym.envs.mujoco.striker import StrikerEnv
+from gym.envs.mujoco.hopper_blp import HopperBLPEnv
+from gym.envs.mujoco.inverted_pendulum_blp import InvertedPendulumBLPEnv

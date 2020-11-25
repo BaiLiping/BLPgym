@@ -234,14 +234,21 @@ register(
 
 register(
     id='InvertedPendulum-v2',
-    entry_point='gym.envs.mujoco:InvertedPendulumEnv',
+    entry_point='gym.envs.mujoco.inverted_pendulum:InvertedPendulumEnv',
+    max_episode_steps=1000,
+    reward_threshold=950.0,
+)
+
+register(
+    id='InvertedPendulumBLP-v0',
+    entry_point='gym.envs.mujoco.inverted_pendulum_blp:InvertedPendulumBLPEnv',
     max_episode_steps=1000,
     reward_threshold=950.0,
 )
 
 register(
     id='InvertedDoublePendulum-v2',
-    entry_point='gym.envs.mujoco:InvertedDoublePendulumEnv',
+    entry_point='gym.envs.mujoco.inverted:InvertedDoublePendulumEnv',
     max_episode_steps=1000,
     reward_threshold=9100.0,
 )
@@ -272,6 +279,20 @@ register(
     entry_point='gym.envs.mujoco.hopper_v3:HopperEnv',
     max_episode_steps=1000,
     reward_threshold=3800.0,
+)
+
+register(
+    id='HopperBLP-v0',
+    entry_point='gym.envs.mujoco.hopper_blp:HopperBLPEnv',
+    max_episode_steps=3000,
+    reward_threshold=3000.0,
+)
+
+register(
+    id='HopperBLP-v1',
+    entry_point='gym.envs.mujoco.hopper_blp_v1:HopperBLPEnv',
+    max_episode_steps=3000,
+    reward_threshold=3000.0,
 )
 
 register(
