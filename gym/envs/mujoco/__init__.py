@@ -2,6 +2,9 @@ from gym.envs.mujoco.mujoco_env import MujocoEnv
 from gym.envs.mujoco.mujoco_blp import MujocoBLPEnv
 from gym.envs.mujoco.mujoco_blp2 import MujocoBLPEnv
 from gym.envs.mujoco.mujoco_blp3 import MujocoBLPEnv
+from gym.envs.mujoco.mujoco_blp4 import MujocoBLPEnv
+from gym.envs.mujoco.mujoco_blp5 import MujocoBLPEnv
+
 
 # ^^^^^ so that user gets the correct error
 # message if mujoco is not installed correctly
@@ -22,3 +25,5 @@ from gym.envs.mujoco.hopper_blp import HopperBLPEnv
 from gym.envs.mujoco.inverted_pendulum_blp import InvertedPendulumBLPEnv
 from gym.envs.mujoco.half_cheetah_blp import HalfCheetahBLPEnv
 from gym.envs.mujoco.walker2d_blp import Walker2dBLPEnv
+from gym.envs.mujoco.swimmer_blp import SwimmerBLPEnv
+from gym.envs.mujoco.ant_blp import AntBLPEnv

@@ -60,7 +60,7 @@ class MujocoBLPEnv(gym.Env):
 
         self._set_action_space()
 
-        action = [0.0,0.0,0.0,0.0,0.0,0.0]
+        action = [0.0,0.0,0.0,0.0,0.0,0.0] #this is the environment for 6 actuators such as walker halfcheetah
         observation, _reward, done, _info = self.step(action)
         assert not done
 
