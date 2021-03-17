@@ -46,7 +46,7 @@ for i, observability in enumerate([False, True]):
 
     register(
         id='Lumberjacks-v' + str(i),
-        entry_point='gym.envs.ma_gym.envs:Lumberjacks',
+        entry_point='gym.envs.ma_gym:Lumberjacks',
         kwargs={'full_observable': observability}
     )
 
