@@ -19,18 +19,15 @@ class PredatorPrey(gym.Env):
     Predator-prey involves a grid world, in which multiple predators attempt to capture randomly moving prey.
     Agents have a 5 × 5 view and select one of five actions ∈ {Left, Right, Up, Down, Stop} at each time step.
     Prey move according to selecting a uniformly random action at each time step.
-
     We define the “catching” of a prey as when the prey is within the cardinal direction of at least one predator.
     Each agent’s observation includes its own coordinates, agent ID, and the coordinates of the prey relative
     to itself, if observed. The agents can separate roles even if the parameters of the neural networks are
     shared by agent ID. We test with two different grid worlds: (i) a 5 × 5 grid world with two predators and one prey,
     and (ii) a 7 × 7 grid world with four predators and two prey.
-
     We modify the general predator-prey, such that a positive reward is given only if multiple predators catch a prey
     simultaneously, requiring a higher degree of cooperation. The predators get a team reward of 1 if two or more
     catch a prey at the same time, but they are given negative reward −P.We experimented with three varying P vales,
     where P = 0.5, 1.0, 1.5.
-
     The terminating condition of this task is when all preys are caught by more than one predator.
     For every new episodes , preys are initialized into random locations. Also, preys never move by themself into
     predator's neighbourhood

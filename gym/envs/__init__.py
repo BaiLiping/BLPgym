@@ -3,6 +3,16 @@ import logging
 from gym import envs
 logger = logging.getLogger(__name__)
 
+
+
+register(
+    id='Radio-v0',
+    entry_point='gym.envs.project:RadioEnv',
+    max_episode_steps=200,
+    reward_threshold=75.0,
+)
+
+
 # Register openai's environments as multi agent
 # This should be done before registering new environments
 env_specs = [env_spec for env_spec in envs.registry.all() if 'gym.envs' in env_spec.entry_point]
@@ -350,6 +360,13 @@ register(
     max_episode_steps=1000,
     reward_threshold=950.0,
 )
+register(
+    id='InvertedPendulumPID-v0',
+    entry_point='gym.envs.mujoco.inverted_pendulum_pid:InvertedPendulumPIDEnv',
+    max_episode_steps=1000,
+    reward_threshold=950.0,
+)
+
 register(
     id='InvertedPendulumBLP-v2',
     entry_point='gym.envs.mujoco.inverted_pendulum_blp2:InvertedPendulumBLPEnv',

@@ -20,3 +20,6 @@ class MultiAgentObservationSpace(list):
                 return False
         else:
             return True
+
+    def get_shape(self):
+        (len(agents_observation_space),)        
